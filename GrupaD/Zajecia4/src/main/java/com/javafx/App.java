@@ -3,12 +3,16 @@
  */
 package com.javafx;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+public class App extends Application {
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        primaryStage.setScene(new Scene(new Group()));
+        primaryStage.show();
     }
 }
