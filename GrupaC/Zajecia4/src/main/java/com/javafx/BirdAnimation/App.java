@@ -6,11 +6,15 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
+import java.net.URL;
 
 public class App extends Application {
     FadeTransition mFadeTransition;
@@ -38,7 +42,7 @@ public class App extends Application {
         mCircle.setFill(Color.AZURE);
 
         //mFadeTransition.setNode(mCircle);
-        mTranslateTransition.setNode(mCircle);
+        //mTranslateTransition.setNode(mCircle);
     }
 
     @Override
@@ -53,6 +57,19 @@ public class App extends Application {
 
         group.getChildren().add(mCircle);
 
+        URL url = getClass().getResource("ptak.gif");
+        Image image = new Image(url.toString());
+
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+
+        imageView.setPreserveRatio(true);
+
+        group.getChildren().add(imageView);
+
+        mTranslateTransition.setNode(imageView);
+
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -61,8 +78,8 @@ public class App extends Application {
                 double x = event.getX();
                 double y = event.getY();
 
-                mTranslateTransition.setFromX(mCircle.getTranslateX());
-                mTranslateTransition.setFromY(mCircle.getTranslateY());
+                mTranslateTransition.setFromX(imageView.getTranslateX());
+                mTranslateTransition.setFromY(imageView.getTranslateY());
 
                 mTranslateTransition.setToX(x);
                 mTranslateTransition.setToY(y);
