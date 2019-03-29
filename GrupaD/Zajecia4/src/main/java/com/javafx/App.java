@@ -5,12 +5,15 @@ import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.net.URL;
 import java.util.ArrayList;
 
 class ColorWithName {
@@ -62,18 +65,28 @@ public class App extends Application {
         circle.setRadius(50);
         circle.setFill(mColors.get(0).getColor());
 
-        group.getChildren().add(circle);
+        URL url = getClass().getResource("ptak.gif");
+
+        Image image = new Image(url.toString());
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
+        imageView.setPreserveRatio(true);
+
+
+        //group.getChildren().add(circle);
+        group.getChildren().add(imageView);
 
         TranslateTransition tt = new TranslateTransition();
         tt.setDuration(Duration.seconds(2));
-        tt.setNode(circle);
+        tt.setNode(imageView);
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                tt.setFromX(circle.getTranslateX());
-                tt.setFromY(circle.getTranslateY());
+                tt.setFromX(imageView.getTranslateX());
+                tt.setFromY(imageView.getTranslateY());
                 tt.setToX(event.getX());
                 tt.setToY(event.getY());
 
