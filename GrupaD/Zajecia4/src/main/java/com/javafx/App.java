@@ -2,8 +2,10 @@ package com.javafx;
 
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -38,6 +40,9 @@ class ColorWithName {
 public class App extends Application {
 
     ArrayList<ColorWithName> mColors = new ArrayList<>();
+    ArrayList<Circle> mItems = new ArrayList<>();
+
+    Circle mCurrentItem = null;
 
     @Override
     public void init() throws Exception {
@@ -73,22 +78,73 @@ public class App extends Application {
         imageView.setFitWidth(100);
         imageView.setPreserveRatio(true);
 
-
-        //group.getChildren().add(circle);
         group.getChildren().add(imageView);
 
         TranslateTransition tt = new TranslateTransition();
         tt.setDuration(Duration.seconds(2));
         tt.setNode(imageView);
 
+        tt.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                double oldX = imageView.getTranslateX();
+                double oldY = imageView.getTranslateY();
+
+                mCurrentItem = getNewItem();
+
+                double newX = mCurrentItem.getCenterX();
+                double newY = mCurrentItem.getCenterY();
+
+                if(mCurrentItem!=null){
+                    tt.setFromX(oldX);
+                    tt.setFromY(oldY);
+
+                    tt.setToX(newX);
+                    tt.setToY(newY);
+
+                    System.out.println("("+oldX+" ,"+oldY+") -> "+"("+newX+" ,"+newY+")");
+                }
+
+            }
+        });
+
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                tt.setFromX(imageView.getTranslateX());
-                tt.setFromY(imageView.getTranslateY());
-                tt.setToX(event.getX());
-                tt.setToY(event.getY());
+                double oldX = imageView.getTranslateX();
+                double oldY = imageView.getTranslateY();
+
+                double newX = event.getX();
+                double newY = event.getY();
+
+                group.getChildren().remove(imageView);
+                group.getChildren().removeAll(mItems);
+
+                Circle item = addItem(newX,newY);
+
+                mItems.add(item);
+
+                group.getChildren().addAll(mItems);
+                group.getChildren().add(imageView);
+
+
+                if(newX>oldX) {
+                    imageView.setScaleX(1);
+                    newX -= imageView.getFitWidth();
+                }
+                else {
+                    imageView.setScaleX(-1);
+                }
+
+                tt.setFromX(oldX);
+                tt.setFromY(oldY);
+
+                tt.setToX(newX);
+
+                newY-=imageView.getFitHeight()/3;
+
+                tt.setToY(newY);
 
                 tt.stop();
                 tt.play();
@@ -101,6 +157,24 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    private Circle addItem(double x, double y){
+        Circle circle = new Circle();
+        circle.setCenterX(x);
+        circle.setCenterY(y);
+
+        circle.setRadius(Math.random()*20+10);
+        circle.setFill(Color.YELLOW);
+
+        return circle;
+    }
+
+    private Circle getNewItem(){
+        if(mItems.size()>0)
+            return mItems.get(0);
+        else
+            return null;
     }
 
 
