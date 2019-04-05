@@ -40,9 +40,9 @@ class ColorWithName {
 public class App extends Application {
 
     ArrayList<ColorWithName> mColors = new ArrayList<>();
-    ArrayList<Circle> mItems = new ArrayList<>();
+    ArrayList<Node> mItems = new ArrayList<>();
 
-    Circle mCurrentItem = null;
+    Node mCurrentItem = null;
 
     @Override
     public void init() throws Exception {
@@ -92,8 +92,9 @@ public class App extends Application {
 
                 mCurrentItem = getNewItem();
 
-                double newX = mCurrentItem.getCenterX();
-                double newY = mCurrentItem.getCenterY();
+                double newX = mCurrentItem.getTranslateX();
+                double newY = mCurrentItem.getTranslateY();
+
 
                 if(mCurrentItem!=null){
                     tt.setFromX(oldX);
@@ -161,8 +162,11 @@ public class App extends Application {
 
     private Circle addItem(double x, double y){
         Circle circle = new Circle();
-        circle.setCenterX(x);
-        circle.setCenterY(y);
+        circle.setCenterX(0);
+        circle.setCenterY(0);
+
+        circle.setTranslateX(x);
+        circle.setTranslateY(y);
 
         circle.setRadius(Math.random()*20+10);
         circle.setFill(Color.YELLOW);
@@ -170,7 +174,7 @@ public class App extends Application {
         return circle;
     }
 
-    private Circle getNewItem(){
+    private Node getNewItem(){
         if(mItems.size()>0)
             return mItems.get(0);
         else
