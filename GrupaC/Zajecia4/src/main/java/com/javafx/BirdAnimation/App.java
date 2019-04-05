@@ -9,18 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.net.URL;
+import java.util.ArrayList;
 
 public class App extends Application {
     FadeTransition mFadeTransition;
     TranslateTransition mTranslateTransition;
 
-    Circle mCircle;
+    ArrayList<ImageView> mKwiatki = new ArrayList<>();
 
     @Override
     public void init() throws Exception {
@@ -35,14 +34,6 @@ public class App extends Application {
         mTranslateTransition = new TranslateTransition();
         mTranslateTransition.setDuration(Duration.seconds(5));
 
-        mCircle = new Circle();
-        mCircle.setCenterX(0);
-        mCircle.setCenterY(0);
-        mCircle.setRadius(50);
-        mCircle.setFill(Color.AZURE);
-
-        //mFadeTransition.setNode(mCircle);
-        //mTranslateTransition.setNode(mCircle);
     }
 
     @Override
@@ -55,34 +46,51 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        group.getChildren().add(mCircle);
-
         URL url = getClass().getResource("ptak.gif");
         Image image = new Image(url.toString());
 
-        ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
+        ImageView bird = new ImageView(image);
+        bird.setFitWidth(100);
+        bird.setFitHeight(100);
 
-        imageView.setPreserveRatio(true);
+        bird.setPreserveRatio(true);
 
-        group.getChildren().add(imageView);
+        group.getChildren().add(bird);
 
-        mTranslateTransition.setNode(imageView);
+        mTranslateTransition.setNode(bird);
 
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
 
-                double x = event.getX();
-                double y = event.getY();
+                double x1 = event.getX();
+                double y1 = event.getY();
 
-                mTranslateTransition.setFromX(imageView.getTranslateX());
-                mTranslateTransition.setFromY(imageView.getTranslateY());
+                double x0 = bird.getTranslateX();
+                double y0 = bird.getTranslateY();
 
-                mTranslateTransition.setToX(x);
-                mTranslateTransition.setToY(y);
+                group.getChildren().removeAll(mKwiatki);
+                group.getChildren().remove(bird);
+
+                addFlower(x1,y1);
+
+                group.getChildren().addAll(mKwiatki);
+                group.getChildren().add(bird);
+
+
+                if(x1>x0){
+                    bird.setScaleX(1);
+                }else{
+                    bird.setScaleX(-1);
+                }
+
+
+                mTranslateTransition.setFromX(x0);
+                mTranslateTransition.setFromY(y0);
+
+                mTranslateTransition.setToX(x1);
+                mTranslateTransition.setToY(y1);
 
                 mTranslateTransition.stop();
 
@@ -91,5 +99,22 @@ public class App extends Application {
             }
         });
 
+    }
+
+    private void addFlower(double x, double y){
+
+        URL url = getClass().getResource("kwiatek.png");
+        Image image = new Image(url.toString());
+
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(100);
+        imageView.setFitHeight(100);
+
+        imageView.setX(x);
+        imageView.setY(y);
+
+        imageView.setPreserveRatio(true);
+
+        mKwiatki.add(imageView);
     }
 }
