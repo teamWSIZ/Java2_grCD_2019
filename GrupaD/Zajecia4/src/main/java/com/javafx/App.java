@@ -43,6 +43,7 @@ public class App extends Application {
     ArrayList<Node> mItems = new ArrayList<>();
 
     Node mCurrentItem = null;
+    private ImageView mBird;
 
     @Override
     public void init() throws Exception {
@@ -50,6 +51,14 @@ public class App extends Application {
 
         mColors.add(new ColorWithName(Color.AQUAMARINE,"Aquamarine"));
         mColors.add(new ColorWithName(Color.BISQUE,"Bisque"));
+
+        URL url = getClass().getResource("ptak.gif");
+
+        Image image = new Image(url.toString());
+        mBird = new ImageView(image);
+        mBird.setFitHeight(100);
+        mBird.setFitWidth(100);
+        mBird.setPreserveRatio(true);
 
     }
 
@@ -70,25 +79,18 @@ public class App extends Application {
         circle.setRadius(50);
         circle.setFill(mColors.get(0).getColor());
 
-        URL url = getClass().getResource("ptak.gif");
 
-        Image image = new Image(url.toString());
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
-        imageView.setPreserveRatio(true);
-
-        group.getChildren().add(imageView);
+        group.getChildren().add(mBird);
 
         TranslateTransition tt = new TranslateTransition();
         tt.setDuration(Duration.seconds(2));
-        tt.setNode(imageView);
+        tt.setNode(mBird);
 
         tt.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                double oldX = imageView.getTranslateX();
-                double oldY = imageView.getTranslateY();
+                double oldX = mBird.getTranslateX();
+                double oldY = mBird.getTranslateY();
 
                 mCurrentItem = getNewItem();
 
@@ -103,7 +105,7 @@ public class App extends Application {
                     tt.setToX(newX);
                     tt.setToY(newY);
 
-                    System.out.println("("+oldX+" ,"+oldY+") -> "+"("+newX+" ,"+newY+")");
+                    System.out.println("("+oldX+" ,"+oldY+")");// -> "+"("+newX+" ,"+newY+")");
                 }
 
             }
@@ -113,13 +115,15 @@ public class App extends Application {
             @Override
             public void handle(MouseEvent event) {
 
-                double oldX = imageView.getTranslateX();
-                double oldY = imageView.getTranslateY();
+                double oldX = mBird.getTranslateX();
+                double oldY = mBird.getTranslateY();
 
                 double newX = event.getX();
                 double newY = event.getY();
 
-                group.getChildren().remove(imageView);
+                System.out.println("new mouse position: ("+newX+", "+newY+")");
+
+                group.getChildren().remove(mBird);
                 group.getChildren().removeAll(mItems);
 
                 Circle item = addItem(newX,newY);
@@ -127,15 +131,15 @@ public class App extends Application {
                 mItems.add(item);
 
                 group.getChildren().addAll(mItems);
-                group.getChildren().add(imageView);
+                group.getChildren().add(mBird);
 
 
                 if(newX>oldX) {
-                    imageView.setScaleX(1);
-                    newX -= imageView.getFitWidth();
+                    mBird.setScaleX(1);
+                    newX -= mBird.getFitWidth();
                 }
                 else {
-                    imageView.setScaleX(-1);
+                    mBird.setScaleX(-1);
                 }
 
                 tt.setFromX(oldX);
@@ -143,7 +147,7 @@ public class App extends Application {
 
                 tt.setToX(newX);
 
-                newY-=imageView.getFitHeight()/3;
+                newY-=mBird.getFitHeight()/3;
 
                 tt.setToY(newY);
 
