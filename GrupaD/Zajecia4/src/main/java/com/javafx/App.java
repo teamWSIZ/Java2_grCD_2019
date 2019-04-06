@@ -143,7 +143,7 @@ public class App extends Application {
                 group.getChildren().remove(mBird);
                 group.getChildren().removeAll(mItems);
 
-                Circle item = createNewItem(newX,newY);
+                Node item = createNewObject(newX,newY);
 
                 if(mItems.size()==0){
                     mCurrentItem = item;
@@ -182,7 +182,7 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    private Circle createNewItem(double x, double y){
+    private Circle createNewCircle(double x, double y){
         Circle circle = new Circle();
         circle.setCenterX(0);
         circle.setCenterY(0);
@@ -194,6 +194,36 @@ public class App extends Application {
         circle.setFill(Color.YELLOW);
 
         return circle;
+    }
+
+    private ImageView createNewFlower(double x, double y){
+        URL url = getClass().getResource("kwiatek.png");
+
+        Image image = new Image(url.toString());
+        ImageView flower = new ImageView(image);
+        flower.setFitHeight(Math.random()*50+50);
+        flower.setFitWidth(Math.random()*50+50);
+        flower.setPreserveRatio(true);
+
+        if(Math.random()>0.5)
+            flower.setScaleX(1);
+        else
+            flower.setScaleX(-1);
+
+        flower.setX(0);
+        flower.setY(0);
+
+        flower.setTranslateX(x);
+        flower.setTranslateY(y);
+
+        return flower;
+    }
+
+    private Node createNewObject(double x, double y){
+        if(Math.random()>0.2)
+            return createNewFlower(x,y);
+        else
+            return createNewCircle(x,y);
     }
 
     private Node getNewItem(){
