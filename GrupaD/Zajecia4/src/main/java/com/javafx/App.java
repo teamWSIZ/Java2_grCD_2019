@@ -92,7 +92,10 @@ public class App extends Application {
                 double oldX = mBird.getTranslateX();
                 double oldY = mBird.getTranslateY();
 
-                if(mItems.size()==0) {
+                mItems.remove(mCurrentItem);
+                group.getChildren().remove(mCurrentItem);
+
+                if(mItems.size()!=0) {
                     mCurrentItem = getNewItem();
                 }
 
@@ -104,10 +107,20 @@ public class App extends Application {
                     tt.setFromX(oldX);
                     tt.setFromY(oldY);
 
+                    if(newX>oldX) {
+                        mBird.setScaleX(1);
+                        newX -= mBird.getFitWidth();
+                    }
+                    else {
+                        mBird.setScaleX(-1);
+                    }
+
+                    System.out.println("New animation: "+"("+oldX+" ,"+oldY+")"+" -> "+"("+newX+" ,"+newY+")");
+
                     tt.setToX(newX);
                     tt.setToY(newY);
 
-                    System.out.println("("+oldX+" ,"+oldY+")");// -> "+"("+newX+" ,"+newY+")");
+                    tt.play();
                 }
 
             }
@@ -154,8 +167,6 @@ public class App extends Application {
                     tt.stop();
                     tt.play();
 
-                    ColorWithName color = mColors.get(randomNumber(mColors.size())-1);
-                    circle.setFill(color.getColor());
                 }else
                     mItems.add(item);
 
