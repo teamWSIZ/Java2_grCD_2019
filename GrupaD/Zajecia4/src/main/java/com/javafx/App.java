@@ -118,6 +118,8 @@ public class App extends Application {
                     System.out.println("New animation: "+"("+oldX+" ,"+oldY+")"+" -> "+"("+newX+" ,"+newY+")");
 
                     tt.setToX(newX);
+
+                    newY-=mBird.getFitHeight()/3;
                     tt.setToY(newY);
 
                     tt.play();
