@@ -92,7 +92,9 @@ public class App extends Application {
                 double oldX = mBird.getTranslateX();
                 double oldY = mBird.getTranslateY();
 
-                mCurrentItem = getNewItem();
+                if(mItems.size()==0) {
+                    mCurrentItem = getNewItem();
+                }
 
                 double newX = mCurrentItem.getTranslateX();
                 double newY = mCurrentItem.getTranslateY();
@@ -126,36 +128,39 @@ public class App extends Application {
                 group.getChildren().remove(mBird);
                 group.getChildren().removeAll(mItems);
 
-                Circle item = addItem(newX,newY);
+                Circle item = createNewItem(newX,newY);
 
-                mItems.add(item);
+                if(mItems.size()==0){
+                    mCurrentItem = item;
+                    mItems.add(item);
+
+                    if(newX>oldX) {
+                        mBird.setScaleX(1);
+                        newX -= mBird.getFitWidth();
+                    }
+                    else {
+                        mBird.setScaleX(-1);
+                    }
+
+                    tt.setFromX(oldX);
+                    tt.setFromY(oldY);
+
+                    tt.setToX(newX);
+
+                    newY-=mBird.getFitHeight()/3;
+
+                    tt.setToY(newY);
+
+                    tt.stop();
+                    tt.play();
+
+                    ColorWithName color = mColors.get(randomNumber(mColors.size())-1);
+                    circle.setFill(color.getColor());
+                }else
+                    mItems.add(item);
 
                 group.getChildren().addAll(mItems);
                 group.getChildren().add(mBird);
-
-
-                if(newX>oldX) {
-                    mBird.setScaleX(1);
-                    newX -= mBird.getFitWidth();
-                }
-                else {
-                    mBird.setScaleX(-1);
-                }
-
-                tt.setFromX(oldX);
-                tt.setFromY(oldY);
-
-                tt.setToX(newX);
-
-                newY-=mBird.getFitHeight()/3;
-
-                tt.setToY(newY);
-
-                tt.stop();
-                tt.play();
-
-                ColorWithName color = mColors.get(randomNumber(mColors.size())-1);
-                circle.setFill(color.getColor());
 
             }
         });
@@ -164,7 +169,7 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    private Circle addItem(double x, double y){
+    private Circle createNewItem(double x, double y){
         Circle circle = new Circle();
         circle.setCenterX(0);
         circle.setCenterY(0);
