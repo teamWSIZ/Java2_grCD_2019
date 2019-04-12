@@ -24,6 +24,8 @@ public class App extends Application {
     ArrayList<Node> mKwiatki = new ArrayList<>();
     Node mPtaszek;
 
+    Node mCurrentItem;
+
     @Override
     public void init() throws Exception {
         super.init();
@@ -67,8 +69,72 @@ public class App extends Application {
         mTranslateTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                group.getChildren().removeAll(mKwiatki);
+                group.getChildren().remove(mPtaszek);
+
+                mKwiatki.remove(mCurrentItem);
+
+                group.getChildren().addAll(mKwiatki);
+                group.getChildren().add(mPtaszek);
+
+                if(mKwiatki.size()>0){
+                    mCurrentItem = mKwiatki.get(0);
+
+                    double x0 = mPtaszek.getTranslateX();
+                    double y0 = mPtaszek.getTranslateY();
+
+                    double x1 = mCurrentItem.getTranslateX();
+                    double y1 = mCurrentItem.getTranslateY();
+
+                    mTranslateTransition.setFromX(x0);
+                    mTranslateTransition.setFromY(y0);
+
+                    mTranslateTransition.setToX(x1);
+                    mTranslateTransition.setToY(y1);
+
+                    mTranslateTransition.play();
+                }
+
                 System.out.println("Animacja zakończona");
             }
+        });
+
+        scene.setOnMouseClicked(event -> {
+            double x1 = event.getX();
+            double y1 = event.getY();
+
+            double x0 = mPtaszek.getTranslateX();
+            double y0 = mPtaszek.getTranslateY();
+
+            group.getChildren().removeAll(mKwiatki);
+            group.getChildren().remove(mPtaszek);
+
+            if(mKwiatki.size()==0) {
+
+                mCurrentItem = createFlower(x1, y1);
+                mKwiatki.add(mCurrentItem);
+
+                if (x1 > x0) {
+                    mPtaszek.setScaleX(1);
+                } else {
+                    mPtaszek.setScaleX(-1);
+                }
+
+                mTranslateTransition.setFromX(x0);
+                mTranslateTransition.setFromY(y0);
+
+                mTranslateTransition.setToX(x1);
+                mTranslateTransition.setToY(y1);
+
+                mTranslateTransition.stop();
+
+                mTranslateTransition.play();
+            }else{
+                mKwiatki.add(createFlower(x1, y1));
+            }
+
+            group.getChildren().addAll(mKwiatki);
+            group.getChildren().add(mPtaszek);
         });
 
 
@@ -85,47 +151,52 @@ public class App extends Application {
                 group.getChildren().removeAll(mKwiatki);
                 group.getChildren().remove(mPtaszek);
 
-                addFlower(x1,y1);
+                if(mKwiatki.size()==0) {
+
+                    mCurrentItem = createFlower(x1, y1);
+                    mKwiatki.add(mCurrentItem);
+
+                    if (x1 > x0) {
+                        mPtaszek.setScaleX(1);
+                    } else {
+                        mPtaszek.setScaleX(-1);
+                    }
+
+                    mTranslateTransition.setFromX(x0);
+                    mTranslateTransition.setFromY(y0);
+
+                    mTranslateTransition.setToX(x1);
+                    mTranslateTransition.setToY(y1);
+
+                    mTranslateTransition.stop();
+
+                    mTranslateTransition.play();
+                }else{
+                    mKwiatki.add(createFlower(x1, y1));
+                }
 
                 group.getChildren().addAll(mKwiatki);
                 group.getChildren().add(mPtaszek);
-
-
-                if(x1>x0){
-                    mPtaszek.setScaleX(1);
-                }else{
-                    mPtaszek.setScaleX(-1);
-                }
-
-                mTranslateTransition.setFromX(x0);
-                mTranslateTransition.setFromY(y0);
-
-                mTranslateTransition.setToX(x1);
-                mTranslateTransition.setToY(y1);
-
-                mTranslateTransition.stop();
-
-                mTranslateTransition.play();
 
             }
         });
 
     }
 
-    private void addFlower(double x, double y){
+    private ImageView createFlower(double x, double y){
 
         URL url = getClass().getResource("kwiatek.png");
         Image image = new Image(url.toString());
 
         ImageView imageView = new ImageView(image);
-        imageView.setFitWidth(100);
-        imageView.setFitHeight(100);
+        imageView.setFitWidth(50+Math.random()*50);
+        imageView.setFitHeight(50+Math.random()*50);
 
         imageView.setX(x);
         imageView.setY(y);
 
         imageView.setPreserveRatio(true);
 
-        mKwiatki.add(imageView);
+        return imageView;
     }
 }
