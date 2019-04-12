@@ -3,8 +3,10 @@ package com.javafx.BirdAnimation;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,7 +21,8 @@ public class App extends Application {
     FadeTransition mFadeTransition;
     TranslateTransition mTranslateTransition;
 
-    ArrayList<ImageView> mKwiatki = new ArrayList<>();
+    ArrayList<Node> mKwiatki = new ArrayList<>();
+    Node mPtaszek;
 
     @Override
     public void init() throws Exception {
@@ -34,6 +37,17 @@ public class App extends Application {
         mTranslateTransition = new TranslateTransition();
         mTranslateTransition.setDuration(Duration.seconds(5));
 
+        URL url = getClass().getResource("ptak.gif");
+        Image image = new Image(url.toString());
+
+        ImageView bird = new ImageView(image);
+        bird.setFitWidth(100);
+        bird.setFitHeight(100);
+
+        bird.setPreserveRatio(true);
+
+        mPtaszek = bird;
+
     }
 
     @Override
@@ -46,18 +60,16 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        URL url = getClass().getResource("ptak.gif");
-        Image image = new Image(url.toString());
+        group.getChildren().add(mPtaszek);
 
-        ImageView bird = new ImageView(image);
-        bird.setFitWidth(100);
-        bird.setFitHeight(100);
+        mTranslateTransition.setNode(mPtaszek);
 
-        bird.setPreserveRatio(true);
-
-        group.getChildren().add(bird);
-
-        mTranslateTransition.setNode(bird);
+        mTranslateTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Animacja zakończona");
+            }
+        });
 
 
         scene.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -67,24 +79,23 @@ public class App extends Application {
                 double x1 = event.getX();
                 double y1 = event.getY();
 
-                double x0 = bird.getTranslateX();
-                double y0 = bird.getTranslateY();
+                double x0 = mPtaszek.getTranslateX();
+                double y0 = mPtaszek.getTranslateY();
 
                 group.getChildren().removeAll(mKwiatki);
-                group.getChildren().remove(bird);
+                group.getChildren().remove(mPtaszek);
 
                 addFlower(x1,y1);
 
                 group.getChildren().addAll(mKwiatki);
-                group.getChildren().add(bird);
+                group.getChildren().add(mPtaszek);
 
 
                 if(x1>x0){
-                    bird.setScaleX(1);
+                    mPtaszek.setScaleX(1);
                 }else{
-                    bird.setScaleX(-1);
+                    mPtaszek.setScaleX(-1);
                 }
-
 
                 mTranslateTransition.setFromX(x0);
                 mTranslateTransition.setFromY(y0);
