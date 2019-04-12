@@ -12,9 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-class Field extends Rectangle{
+class Square extends Rectangle{
 
-    Field(double dimension, boolean checked){
+    Square(double dimension, boolean checked){
         setWidth(dimension);
         setHeight(dimension);
 
@@ -22,6 +22,13 @@ class Field extends Rectangle{
             setFill(Color.CADETBLUE);
         else
             setFill(Color.BEIGE);
+
+        setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+            }
+        });
     }
 }
 
@@ -31,9 +38,9 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
 
-        Field field = new Field(100,true);
+        Square square = new Square(100,true);
 
-        group.getChildren().add(field);
+        group.getChildren().add(square);
 
         Scene scene = new Scene(group,640,640);
 
