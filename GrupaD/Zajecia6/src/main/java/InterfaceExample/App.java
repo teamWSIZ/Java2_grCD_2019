@@ -111,6 +111,15 @@ public class App extends Application {
 
                     System.out.println("kliknięto: "+i);
 
+                    int n0 = i-1;
+                    int n1 = i+1;
+
+                    if(n0>=0&&n0<mGameboard.length)
+                        mGameboard[n0].switchChecked();
+
+                if(n1>=0&&n1<mGameboard.length)
+                    mGameboard[n1].switchChecked();
+
 
             });
 
