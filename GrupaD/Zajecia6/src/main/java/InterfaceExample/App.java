@@ -13,10 +13,22 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 class Square extends Rectangle{
+
+    @FunctionalInterface
+    public interface onSquareClicked{
+        void onClicked(int i, int j);
+    }
+
+    onSquareClicked mListener;
+
     int i = 0,j = 0;
 
     boolean mChecked = false;
 
+
+    public void setOnSquareClickedListener(onSquareClicked listener){
+        mListener = listener;
+    }
 
     Square(double dimension, boolean checked){
 
@@ -37,6 +49,10 @@ class Square extends Rectangle{
                 System.out.println("["+i+", "+j+"]");
 
                 switchChecked();
+
+                if(mListener!=null){
+                    mListener.onClicked(i,j);
+                }
 
         });
     }
@@ -79,19 +95,26 @@ public class App extends Application {
 
     public void createGameboard(){
 
-        for(int i=0;i<mData.length;i++){
+        for(int no=0;no<mData.length;no++){
 
             Square square;
 
-            if(mData[i]==1)
+            if(mData[no]==1)
                 square = new Square(100,true);
             else
                 square = new Square(100,false);
 
-            square.setTranslateX(100*i);
-            square.setCoordinates(i,0);
+            square.setTranslateX(100*no);
+            square.setCoordinates(no,0);
 
-            mGameboard[i] = square;
+            square.setOnSquareClickedListener((int i, int j)-> {
+
+                    System.out.println("kliknięto: "+i);
+
+
+            });
+
+            mGameboard[no] = square;
 
         }
     }
