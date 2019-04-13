@@ -13,12 +13,15 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 class Square extends Rectangle{
-    int i = 0;
-    int j = 0;
+    int i = 0,j = 0;
+
 
     Square(double dimension, boolean checked){
         setWidth(dimension);
         setHeight(dimension);
+
+        setStrokeWidth(0.5);
+        setStroke(Color.BLACK);
 
         if(checked)
             setFill(Color.CADETBLUE);
@@ -40,21 +43,41 @@ class Square extends Rectangle{
 }
 
 public class App extends Application {
-    int[] mGameboard = new int[]{0,0,1,0,0,0,0};
+    int[] mData = new int[]{1,0,1,0,0,0,0,1};
+    Square[] mGameboard = new Square[8];
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
         Group group = new Group();
 
-        Square square = new Square(100,true);
-        square.setCoordinates(4,4);
+        createGameboard();
 
-        group.getChildren().add(square);
+        for(Square square : mGameboard)
+            group.getChildren().add(square);
 
-        Scene scene = new Scene(group,640,640);
+
+        Scene scene = new Scene(group,800,800);
 
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+    public void createGameboard(){
+
+        for(int i=0;i<mData.length;i++){
+
+            Square square;
+
+            if(mData[i]==1)
+                square = new Square(100,true);
+            else
+                square = new Square(100,false);
+
+            square.setTranslateX(100*i);
+
+            mGameboard[i] = square;
+        }
+    }
+
 }
