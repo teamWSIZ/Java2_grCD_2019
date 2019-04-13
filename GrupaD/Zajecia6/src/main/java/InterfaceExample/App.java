@@ -13,6 +13,8 @@ import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
 class Square extends Rectangle{
+    int i = 0;
+    int j = 0;
 
     Square(double dimension, boolean checked){
         setWidth(dimension);
@@ -26,19 +28,27 @@ class Square extends Rectangle{
         setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
+                System.out.println("["+i+", "+j+"]");
             }
         });
+    }
+
+    public void setCoordinates(int i, int j){
+        this.i = i;
+        this.j = j;
     }
 }
 
 public class App extends Application {
+    int[] mGameboard = new int[]{0,0,1,0,0,0,0};
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
         Group group = new Group();
 
         Square square = new Square(100,true);
+        square.setCoordinates(4,4);
 
         group.getChildren().add(square);
 
