@@ -15,30 +15,44 @@ import javafx.stage.Stage;
 class Square extends Rectangle{
     int i = 0,j = 0;
 
+    boolean mChecked = false;
+
 
     Square(double dimension, boolean checked){
+
         setWidth(dimension);
         setHeight(dimension);
 
         setStrokeWidth(0.5);
         setStroke(Color.BLACK);
 
-        if(checked)
+        mChecked = checked;
+
+        if(mChecked)
             setFill(Color.CADETBLUE);
         else
             setFill(Color.BEIGE);
 
-        setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
+        setOnMouseClicked(event->{
                 System.out.println("["+i+", "+j+"]");
-            }
+
+                switchChecked();
+
         });
     }
 
     public void setCoordinates(int i, int j){
         this.i = i;
         this.j = j;
+    }
+
+    public void switchChecked(){
+        mChecked=!mChecked;
+
+        if(mChecked)
+            setFill(Color.CADETBLUE);
+        else
+            setFill(Color.BEIGE);
     }
 }
 
@@ -75,8 +89,10 @@ public class App extends Application {
                 square = new Square(100,false);
 
             square.setTranslateX(100*i);
+            square.setCoordinates(i,0);
 
             mGameboard[i] = square;
+
         }
     }
 
