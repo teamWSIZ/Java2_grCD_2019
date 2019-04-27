@@ -12,10 +12,17 @@ import javafx.scene.image.PixelReader;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
+enum PuzzleOrientation{
+    //0,90,180,270;
+    correct,right,upsidedown,left;
+}
+
 class PuzzleElement extends ImageView {
 
     private int mI, mJ;
     private int mDimension;
+
+    private PuzzleOrientation mOrientation;
 
     @FunctionalInterface
     public interface onPuzzleClicked {
@@ -30,21 +37,60 @@ class PuzzleElement extends ImageView {
 
     WritableImage mImage;
 
+    double mAngle = 0;
+
     PuzzleElement(WritableImage image, int dimension, int i, int j) {
         super(image);
 
         mDimension = dimension;
 
+        mOrientation = PuzzleOrientation.correct;
+
         this.setX(i * dimension);
 
         mI = i;
         mJ = j;
+
+        randomize();
+
+        setOnMouseClicked(event -> {
+            rotate();
+        });
+    }
+
+    private void rotate(){
+
+        switch(mOrientation){
+            case correct:
+                mOrientation = PuzzleOrientation.right;
+                mAngle = 90;
+                break;
+            case right:
+                mOrientation = PuzzleOrientation.upsidedown;
+                mAngle = 180;
+                break;
+            case upsidedown:
+                mOrientation = PuzzleOrientation.left;
+                mAngle = 270;
+            case left:
+                mOrientation = PuzzleOrientation.correct;
+                mAngle = 0;
+                break;
+        }
+
+        setRotate(mAngle);
+    }
+
+    public void randomize(){
+        for(int i=0;i<Math.random()*4;i++)
+            rotate();
     }
 }
 
 public class App extends Application {
 
-    PuzzleElement[][] mPuzzle = new PuzzleElement[2][2];
+    final int puzzleDim = 4;
+    PuzzleElement[][] mPuzzle = new PuzzleElement[puzzleDim][puzzleDim];
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -54,8 +100,8 @@ public class App extends Application {
 
         createPuzzle();
 
-        for (int j = 0; j < 2; j++)
-            for (int i = 0; i < 2; i++)
+        for (int j = 0; j < puzzleDim; j++)
+            for (int i = 0; i < puzzleDim; i++)
                 group.getChildren().add(mPuzzle[i][j]);
 
         primaryStage.setScene(scene);
@@ -68,12 +114,12 @@ public class App extends Application {
 
         PixelReader reader = image.getPixelReader();
 
-        int d = (int) (image.getWidth() / 2);
+        int d = (int) (image.getWidth() / puzzleDim);
 
-        for (int j = 0; j < 2; j++) {
-            for (int i = 0; i < 2; i++) {
+        for (int j = 0; j < puzzleDim; j++) {
+            for (int i = 0; i < puzzleDim; i++) {
                 WritableImage newImage = new WritableImage(reader, i * d, j * d, d, d);
-                mPuzzle[i][j] = new PuzzleElement(newImage, (int) (image.getWidth() / 2), i, j);
+                mPuzzle[i][j] = new PuzzleElement(newImage, d, i, j);
 
                 mPuzzle[i][j].setX(i * d);
                 mPuzzle[i][j].setY(j * d);
