@@ -89,7 +89,7 @@ class PuzzleElement extends ImageView {
 
 public class App extends Application {
 
-    final int puzzleDim = 4;
+    final int puzzleDim = 10;
     PuzzleElement[][] mPuzzle = new PuzzleElement[puzzleDim][puzzleDim];
 
     @Override
