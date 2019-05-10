@@ -30,12 +30,18 @@ class Kwadrat extends Rectangle {
 }
 
 class Trojkat extends Path{
-    double rozmiar;
+    double a;
+    double h;
+
     Paint mPaint;
 
-    Trojkat(){
-        getElements().add(new MoveTo(0,0));
-        getElements().add(new LineTo(0,100));
+    Trojkat(double rozmiar){
+
+        this.a = rozmiar;
+        this.h = Math.sqrt(3)/2.0*a;
+
+        getElements().add(new MoveTo(0,a/2));
+        getElements().add(new LineTo(a,h));
         getElements().add(new LineTo(100,100));
         getElements().add(new LineTo(0,0));
 
@@ -57,7 +63,7 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Trojkat trojkat = new Trojkat();
+        Trojkat trojkat = new Trojkat(100);
 
         group.getChildren().add(trojkat);
 
