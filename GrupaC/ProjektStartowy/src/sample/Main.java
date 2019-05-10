@@ -5,6 +5,9 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
@@ -26,6 +29,23 @@ class Kwadrat extends Rectangle {
     }
 }
 
+class Trojkat extends Path{
+    double rozmiar;
+    Paint mPaint;
+
+    Trojkat(){
+        getElements().add(new MoveTo(0,0));
+        getElements().add(new LineTo(0,100));
+        getElements().add(new LineTo(100,100));
+        getElements().add(new LineTo(0,0));
+
+        setFill(Color.GREEN);
+
+        setTranslateX(100);
+        setTranslateY(100);
+    }
+}
+
 public class Main extends Application {
 
     @Override
@@ -36,6 +56,11 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        Trojkat trojkat = new Trojkat();
+
+        group.getChildren().add(trojkat);
+
 
         //Kwadrat kwadrat = new Kwadrat(50,Color.YELLOW,group);
         //Kwadrat k1 = new Kwadrat(10,Color.RED,group);
