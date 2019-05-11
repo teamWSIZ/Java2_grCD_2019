@@ -6,6 +6,7 @@ package PuzzleEnumExample;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelReader;
@@ -89,7 +90,7 @@ class PuzzleElement extends ImageView {
 
 public class App extends Application {
 
-    final int puzzleDim = 10;
+    final int puzzleDim = 4;
     PuzzleElement[][] mPuzzle = new PuzzleElement[puzzleDim][puzzleDim];
 
     @Override
@@ -106,6 +107,13 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Puzle");
+        alert.setHeaderText("Rozpocznij grę");
+        alert.setContentText("Program po poprawnym ułożeniu powinien pokazać poprawną ilość ruchów");
+
+        alert.showAndWait();
     }
 
     private void createPuzzle() {

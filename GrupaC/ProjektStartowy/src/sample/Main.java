@@ -40,15 +40,13 @@ class Trojkat extends Path{
         this.a = rozmiar;
         this.h = Math.sqrt(3)/2.0*a;
 
-        getElements().add(new MoveTo(0,a/2));
+        getElements().add(new MoveTo(a/2,0));
         getElements().add(new LineTo(a,h));
-        getElements().add(new LineTo(100,100));
-        getElements().add(new LineTo(0,0));
+        getElements().add(new LineTo(0,h));
+        getElements().add(new LineTo(a/2,0));
 
         setFill(Color.GREEN);
 
-        setTranslateX(100);
-        setTranslateY(100);
     }
 }
 
@@ -63,19 +61,20 @@ public class Main extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Trojkat trojkat = new Trojkat(100);
-
-        group.getChildren().add(trojkat);
-
-
-        //Kwadrat kwadrat = new Kwadrat(50,Color.YELLOW,group);
-        //Kwadrat k1 = new Kwadrat(10,Color.RED,group);
-
         for(int i=0;i<100;i++){
             Kwadrat k = new Kwadrat(Math.random()*10+10,Color.YELLOW,group);
             k.setX(Math.random()*500);
             k.setY(Math.random()*500);
             k.setRotate(Math.random()*180);
+        }
+
+        for(int i=0;i<100;i++){
+            Trojkat k = new Trojkat(Math.random()*20+20);
+            k.setTranslateX(Math.random()*500);
+            k.setTranslateY(Math.random()*500);
+            k.setRotate(Math.random()*180);
+
+            group.getChildren().add(k);
         }
 
 
