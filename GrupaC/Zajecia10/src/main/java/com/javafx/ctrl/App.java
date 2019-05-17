@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -23,12 +24,21 @@ public class App extends Application {
         primaryStage.show();
 
         Button button = new Button();
-        button.setPrefSize(100,50);
         button.setText("Klawisz");
 
-        group.getChildren().add(button);
+        Button button1 = new Button();
+        button1.setText("111111");
 
-        wyswietlAlert();
+        button.setOnMouseClicked(event -> {
+            wyswietlAlert();
+        });
+
+        HBox hbox = new HBox();
+        hbox.getChildren().addAll(button,button1);
+
+        group.getChildren().addAll(hbox);
+
+
 
     }
 
