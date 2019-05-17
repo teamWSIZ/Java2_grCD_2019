@@ -6,6 +6,8 @@ package com.javafx.ctrl;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -19,5 +21,23 @@ public class App extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        Button button = new Button();
+        button.setPrefSize(100,50);
+        button.setText("Klawisz");
+
+        group.getChildren().add(button);
+
+        wyswietlAlert();
+
+    }
+
+    private void wyswietlAlert(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Tytuł okna");
+        alert.setHeaderText("Przykładowy nagłówek");
+        alert.setContentText("Przykładowy tekst");
+
+        alert.showAndWait();
     }
 }
