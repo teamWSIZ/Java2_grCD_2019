@@ -4,35 +4,37 @@
 package com.javafx;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-class MyButton extends Button{
+class MyButton extends Button {
 
-    MyButton(int no){
-        super(""+no);
+    MyButton(int no) {
+        super("" + no);
 
         setMaxWidth(Double.MAX_VALUE);
-        HBox.setHgrow(this, Priority.ALWAYS);
+        setMaxHeight(Double.MAX_VALUE);
+
+
+        GridPane.setVgrow(this, Priority.ALWAYS);
+        GridPane.setHgrow(this, Priority.ALWAYS);
 
         setOnMouseClicked(event -> {
             wyswietlAlert(no);
         });
     }
 
-    private void wyswietlAlert(int no){
+    private void wyswietlAlert(int no) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Tytuł okna");
         alert.setHeaderText("Przykładowy nagłówek");
-        alert.setContentText(""+no);
+        alert.setContentText("" + no);
 
         alert.showAndWait();
     }
@@ -51,22 +53,14 @@ public class App extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        MyButton button0 = new MyButton(0);
-        MyButton button1 = new MyButton(1);
-        MyButton button2 = new MyButton(2);
-        MyButton button3 = new MyButton(100);
+        GridPane gridPane = new GridPane();
 
-        HBox hbox = new HBox(button0,button1,button2,button3);
-        hbox.setPrefWidth(500);
+        for (int j = 0; j < 10; j++)
+            for (int i = 0; i < 10; i++)
+                gridPane.add(new MyButton(j * 10 + i), i, j);
 
 
-
-        BackgroundFill bf = new BackgroundFill(Color.AZURE,null,null);
-
-        hbox.setBackground(new Background(bf));
-
-
-        group.getChildren().add(hbox);
+        group.getChildren().addAll(gridPane);
 
     }
 }
