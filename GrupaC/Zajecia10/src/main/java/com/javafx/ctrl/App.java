@@ -4,11 +4,13 @@
 package com.javafx.ctrl;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -18,35 +20,69 @@ public class App extends Application {
 
         Group group = new Group();
 
-        Scene scene = new Scene(group,500,500);
+        Scene scene = new Scene(group, 500, 500);
 
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Button button = new Button();
-        button.setText("Klawisz");
-
-        Button button1 = new Button();
-        button1.setText("111111");
-
-        button.setOnMouseClicked(event -> {
-            wyswietlAlert();
-        });
-
         HBox hbox = new HBox();
-        hbox.getChildren().addAll(button,button1);
+        Button button0 = new Button("button0");
+        Button button1 = new Button("button1");
 
-        group.getChildren().addAll(hbox);
+        HBox.setHgrow(button0,Priority.ALWAYS);
+        HBox.setHgrow(button1,Priority.ALWAYS);
 
+        button0.setMaxWidth(200);
+        button1.setMaxWidth(200);
+
+        hbox.getChildren().addAll(button0,button1);
+        hbox.setAlignment(Pos.BOTTOM_CENTER);
+
+
+        GridPane grid = new GridPane();
+        grid.setBackground(new Background(new BackgroundFill(Color.AZURE,null,null)));
+
+        grid.setAlignment(Pos.CENTER);
+        grid.setVgap(10);
+
+        grid.setMaxSize(200,200);
+
+
+        final int dimension = 5;
+
+        for (int j = 0; j <= dimension; j++)
+            for (int i = 1; i <= dimension; i++) {
+                Button button = new Button();
+
+                final int no = j * dimension + i;
+                button.setText(""+no);
+
+                GridPane.setHgrow(button,Priority.ALWAYS);
+                GridPane.setVgrow(button,Priority.ALWAYS);
+
+                button.setMaxHeight(Double.MAX_VALUE);
+                button.setMaxWidth(Double.MAX_VALUE);
+
+                button.setOnMouseClicked(event -> {
+                    wyswietlAlert(no);
+                    System.out.println(no);
+                });
+
+                grid.add(button, i, j);
+            }
+
+
+        group.getChildren().addAll(grid);
+        group.getChildren().add(hbox);
 
 
     }
 
-    private void wyswietlAlert(){
+    private void wyswietlAlert(int number) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Tytuł okna");
         alert.setHeaderText("Przykładowy nagłówek");
-        alert.setContentText("Przykładowy tekst");
+        alert.setContentText("Kliknięto: " + number);
 
         alert.showAndWait();
     }
