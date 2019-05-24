@@ -26,10 +26,14 @@ class MyButton extends Button{
         this.setMaxHeight(Double.MAX_VALUE);
         this.setMaxWidth(Double.MAX_VALUE);
 
-        this.setText(""+number);
+        this.setText(""+mNumber);
 
         setOnMouseClicked(event -> {
-            wyswietlAlert(number);
+
+            mNumber = mNumber+1;
+            this.setText(""+mNumber);
+
+            wyswietlAlert(mNumber);
         });
     }
 
@@ -68,14 +72,19 @@ public class App extends Application {
 
         final int dimension = 5;
 
-        for (int j = 0; j < dimension; j++)
+        for (int j = 0; j < dimension; j++) {
             for (int i = 0; i < dimension; i++) {
 
-                grid.add(new MyButton(j*dimension+i+1), i, j);
+                grid.add(new MyButton(j * dimension + i + 1), i, j);
             }
+        }
+        
+        Button button = new Button("Reset");
 
+        VBox vbox = new VBox();
+        vbox.getChildren().addAll(grid,button);
 
-        group.getChildren().addAll(grid);
+        group.getChildren().addAll(vbox);
 
     }
 
