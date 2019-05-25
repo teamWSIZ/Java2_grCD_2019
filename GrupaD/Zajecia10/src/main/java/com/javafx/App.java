@@ -17,6 +17,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 class MyButton extends Button {
+
+    @FunctionalInterface
+    public interface OnMyButtonClicked{
+        void onMyButtonClicked(int i);
+    }
+
+    OnMyButtonClicked mListener;
+
     private int mNumber;
     private int mOriginalNumber;
 
@@ -29,7 +37,6 @@ class MyButton extends Button {
         setMaxWidth(Double.MAX_VALUE);
         setMaxHeight(Double.MAX_VALUE);
 
-
         GridPane.setVgrow(this, Priority.ALWAYS);
         GridPane.setHgrow(this, Priority.ALWAYS);
 
@@ -39,6 +46,14 @@ class MyButton extends Button {
 
             setText(""+mNumber);
             wyswietlAlert(mNumber);
+        });
+    }
+
+    MyButton(int no,OnMyButtonClicked listener){
+        mListener = listener;
+
+        setOnMouseClicked(event -> {
+            mListener.onMyButtonClicked(mNumber);
         });
     }
 
@@ -74,7 +89,9 @@ public class App extends Application {
 
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++) {
-                gridPane.add(new MyButton(j * 10 + i), i, j);
+                gridPane.add(new MyButton(j * 10 + i,number->{
+
+                }), i, j);
             }
         }
 
