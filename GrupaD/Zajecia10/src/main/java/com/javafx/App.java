@@ -4,21 +4,26 @@
 package com.javafx;
 
 import javafx.application.Application;
+import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 class MyButton extends Button {
     private int mNumber;
+    private int mOriginalNumber;
 
     MyButton(int no) {
         super("" + no);
 
+        mOriginalNumber = no;
         mNumber = no;
 
         setMaxWidth(Double.MAX_VALUE);
@@ -35,6 +40,11 @@ class MyButton extends Button {
             setText(""+mNumber);
             wyswietlAlert(mNumber);
         });
+    }
+
+    public void reset(){
+        mNumber = mOriginalNumber;
+        setText(""+mNumber);
     }
 
     private void wyswietlAlert(int no) {
@@ -63,8 +73,9 @@ public class App extends Application {
         GridPane gridPane = new GridPane();
 
         for (int j = 0; j < 10; j++) {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 10; i++) {
                 gridPane.add(new MyButton(j * 10 + i), i, j);
+            }
         }
 
         VBox vbox = new VBox();
@@ -74,6 +85,14 @@ public class App extends Application {
         vbox.setVgrow(resetButton, Priority.ALWAYS);
         vbox.setSpacing(10);
         resetButton.setAlignment(Pos.CENTER);
+
+        resetButton.setOnMouseClicked(event -> {
+            ObservableList<Node> list =  gridPane.getChildren();
+
+            for(Node node : list)
+                ((MyButton) node).reset();
+
+        });
 
         vbox.getChildren().addAll(gridPane,resetButton);
 
