@@ -14,9 +14,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 class MyButton extends Button {
+    private int mNumber;
 
     MyButton(int no) {
         super("" + no);
+
+        mNumber = no;
 
         setMaxWidth(Double.MAX_VALUE);
         setMaxHeight(Double.MAX_VALUE);
@@ -26,7 +29,11 @@ class MyButton extends Button {
         GridPane.setHgrow(this, Priority.ALWAYS);
 
         setOnMouseClicked(event -> {
-            wyswietlAlert(no);
+
+            mNumber++;
+
+            setText(""+mNumber);
+            wyswietlAlert(mNumber);
         });
     }
 
@@ -55,12 +62,22 @@ public class App extends Application {
 
         GridPane gridPane = new GridPane();
 
-        for (int j = 0; j < 10; j++)
+        for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++)
                 gridPane.add(new MyButton(j * 10 + i), i, j);
+        }
 
+        VBox vbox = new VBox();
+        Button resetButton = new Button("Reset");
+        resetButton.setMaxWidth(Double.MAX_VALUE);
 
-        group.getChildren().addAll(gridPane);
+        vbox.setVgrow(resetButton, Priority.ALWAYS);
+        vbox.setSpacing(10);
+        resetButton.setAlignment(Pos.CENTER);
+
+        vbox.getChildren().addAll(gridPane,resetButton);
+
+        group.getChildren().addAll(vbox);
 
     }
 }
