@@ -29,16 +29,9 @@ class MyButton extends Button {
     private int mOriginalNumber;
 
     MyButton(int no) {
-        super("" + no);
 
         mOriginalNumber = no;
         mNumber = no;
-
-        setMaxWidth(Double.MAX_VALUE);
-        setMaxHeight(Double.MAX_VALUE);
-
-        GridPane.setVgrow(this, Priority.ALWAYS);
-        GridPane.setHgrow(this, Priority.ALWAYS);
 
         setOnMouseClicked(event -> {
 
@@ -47,10 +40,27 @@ class MyButton extends Button {
             setText(""+mNumber);
             wyswietlAlert(mNumber);
         });
+
+        init();
+    }
+
+    private void init(){
+        setMaxWidth(Double.MAX_VALUE);
+        setMaxHeight(Double.MAX_VALUE);
+
+        GridPane.setVgrow(this, Priority.ALWAYS);
+        GridPane.setHgrow(this, Priority.ALWAYS);
+
+        setText(""+mNumber);
     }
 
     MyButton(int no,OnMyButtonClicked listener){
+        mOriginalNumber = no;
+        mNumber = no;
+
         mListener = listener;
+
+        init();
 
         setOnMouseClicked(event -> {
             mListener.onMyButtonClicked(mNumber);
@@ -90,7 +100,7 @@ public class App extends Application {
         for (int j = 0; j < 10; j++) {
             for (int i = 0; i < 10; i++) {
                 gridPane.add(new MyButton(j * 10 + i,number->{
-
+                    System.out.println(number);
                 }), i, j);
             }
         }
