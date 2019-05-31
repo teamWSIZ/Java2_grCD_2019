@@ -12,8 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+@FunctionalInterface
 interface funkcjaMatematyczna{
-    void wyswietl();
+    double funkcjaDodatkowa(double a, double b);
 }
 
 
@@ -52,7 +53,19 @@ public class App extends Application {
 
         rectState = !rectState;
 
-        funkcjaMatematyczna funkcja = ()->System.out.println("Wyswietl");
-        funkcja.wyswietl();
+        funkcjaMatematyczna dodaj = (double x, double y)-> x+y;
+
+        funkcjaMatematyczna pomnoz = (double a, double b)->a*b;
+
+        wyswietlWynik(10,10,dodaj);
+        wyswietlWynik(20,20,pomnoz);
+
+        wyswietlWynik(10,4,(a,b)->a-b);
+        wyswietlWynik(40,4,(a,b)->a/b);
+
+    }
+
+    void wyswietlWynik(double a, double b,funkcjaMatematyczna f){
+        System.out.println("Wynik działania: "+f.funkcjaDodatkowa(a,b));
     }
 }
