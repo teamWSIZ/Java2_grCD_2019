@@ -12,6 +12,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+interface funkcjaMatematyczna{
+    void wyswietl();
+}
+
 
 public class App extends Application {
     boolean rectState = false;
@@ -31,21 +35,24 @@ public class App extends Application {
 
         group.getChildren().add(rect);
 
-        rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                if(!rectState)
-                    rect.setFill(Color.GREEN);
-                else
-                    rect.setFill(Color.BEIGE);
-
-                rectState=!rectState;
-
-            }
+        rect.setOnMouseClicked(event->{
+            drawRect(rect);
         });
 
         primaryStage.setScene(scene);
         primaryStage.show();
+    }
+
+    void drawRect(Rectangle rect) {
+        if (!rectState)
+            rect.setFill(Color.GREEN);
+        else
+            rect.setFill(Color.BEIGE);
+
+        rectState = !rectState;
+
+        funkcjaMatematyczna funkcja = ()->System.out.println("Wyswietl");
+        funkcja.wyswietl();
     }
 }
