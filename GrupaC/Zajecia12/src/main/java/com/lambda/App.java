@@ -4,12 +4,17 @@
 package com.lambda;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class App extends Application {
 
+public class App extends Application {
+    boolean rectState = false;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -17,6 +22,28 @@ public class App extends Application {
         Group group = new Group();
 
         Scene scene = new Scene(group, 500, 500);
+
+        Rectangle rect = new Rectangle();
+        rect.setHeight(100);
+        rect.setWidth(100);
+        rect.setFill(Color.BEIGE);
+
+
+        group.getChildren().add(rect);
+
+        rect.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                if(!rectState)
+                    rect.setFill(Color.GREEN);
+                else
+                    rect.setFill(Color.BEIGE);
+
+                rectState=!rectState;
+
+            }
+        });
 
         primaryStage.setScene(scene);
         primaryStage.show();
