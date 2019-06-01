@@ -16,11 +16,13 @@ public class Main {
         wyswietlTabele(true,true, (p,q)->p||q);
         System.out.println("_______________________________");
 
-        System.out.println("----------Prawo de Morgana----------");
+        System.out.println("----------I Prawo de Morgana----------");
         wyswietlTabele(true,true, (p,q)->!(p||q)==(!p&&!q));
         System.out.println("_______________________________");
 
-
+        System.out.println("----------II Prawo de Morgana----------");
+        wyswietlTabele(true,true, (p,q)->!(p&&q)==(!p||!q));
+        System.out.println("_______________________________");
 
 
     }
