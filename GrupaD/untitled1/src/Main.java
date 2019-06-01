@@ -32,20 +32,20 @@ public class Main {
 
         System.out.println();
 
-        wyswietlPQ(true,true, wyrazenie.wyrazenie(true,true));
-        wyswietlPQ(true,false, wyrazenie.wyrazenie(true,false));
-        wyswietlPQ(false,true, wyrazenie.wyrazenie(false,true));
-        wyswietlPQ(false,false, wyrazenie.wyrazenie(false,false));
+        wyswietlPQ(true,true, wyrazenie);
+        wyswietlPQ(true,false, wyrazenie);
+        wyswietlPQ(false,true, wyrazenie);
+        wyswietlPQ(false,false, wyrazenie);
 
     }
 
-    static void wyswietlPQ(boolean p, boolean q, boolean wyrazenie){
+    static void wyswietlPQ(boolean p, boolean q, wyrazenieLogiczne wyrazenie){
         int lp, lq;
 
         if(p)lp = 1; else lp = 0;
         if(q)lq = 1; else lq = 0;
 
-        System.out.println(lp+"    "+lq+"    "+wyrazenie);
+        System.out.println(lp+"    "+lq+"    "+wyrazenie.wyrazenie(p,q));
     }
 
     static void wyswietl(String napis){
