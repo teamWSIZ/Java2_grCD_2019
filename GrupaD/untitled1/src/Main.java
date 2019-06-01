@@ -47,8 +47,4 @@ public class Main {
 
         System.out.println(lp+"    "+lq+"    "+wyrazenie.wyrazenie(p,q));
     }
-
-    static void wyswietl(String napis){
-        System.out.println(napis);
-    }
 }
