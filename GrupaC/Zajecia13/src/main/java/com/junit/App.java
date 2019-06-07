@@ -8,7 +8,12 @@ public class App {
         return "Hello world.";
     }
 
+    public double dodajLiczby(double a, double b){
+        return a+b;
+    }
+
     public static void main(String[] args) {
+
         System.out.println(new App().getGreeting());
     }
 }

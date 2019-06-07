@@ -3,6 +3,26 @@
  */
 package com.junit;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AppTest {
+    @Test
+    public void pierwszyTest(){
+           System.out.println("pierwszy test");
+    }
+
+    @Test
+    void sprawdzRownanie(){
+        assertEquals(10,5+5);
+    }
+
+    @Test
+    public void sprawdzFunkcjeDodajLiczby(){
+        App app = new App();
+
+        assertEquals(50,app.dodajLiczby(20,30));
+    }
 
 }
