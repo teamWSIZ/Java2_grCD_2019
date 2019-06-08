@@ -3,5 +3,23 @@
  */
 package com.junit;
 
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 public class AppTest {
+    @Test
+    public void przykladowyTest(){
+        System.out.println("Przykladowy test");
+    }
+
+    @Test
+    public void pierwszyTest(){
+        App app = new App();
+
+        System.out.println("porównuje liczby 25 i wynik funkcji");
+        assertEquals(25,app.dodaj(10,10));
+    }
+
+
 }

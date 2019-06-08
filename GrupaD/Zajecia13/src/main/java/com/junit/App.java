@@ -9,6 +9,11 @@ public class App {
     }
 
     public static void main(String[] args) {
+
         System.out.println(new App().getGreeting());
+    }
+
+    public double dodaj(double a, double b){
+        return a+b;
     }
 }
