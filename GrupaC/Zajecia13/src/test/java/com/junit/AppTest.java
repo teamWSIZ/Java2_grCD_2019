@@ -25,4 +25,22 @@ public class AppTest {
         assertEquals(50,app.dodajLiczby(20,30));
     }
 
+    @Test
+    public void kwadrat(){
+
+        FiguraGeometryczna figura = new Kwadrat(10);
+
+        assertEquals(100,figura.obliczPole());
+        assertEquals(40,figura.obliczObwod());
+    }
+
+    @Test
+    public void trojkat(){
+
+        FiguraGeometryczna figura = new TrojkatRownoboczny(10);
+
+        //assertEquals(100,figura.obliczPole());
+        assertEquals(30,figura.obliczObwod());
+    }
+
 }
