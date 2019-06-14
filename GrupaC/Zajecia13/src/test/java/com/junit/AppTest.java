@@ -3,9 +3,11 @@
  */
 package com.junit;
 
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest {
     @Test
@@ -25,6 +27,7 @@ public class AppTest {
         assertEquals(50,app.dodajLiczby(20,30));
     }
 
+    @Tag("Figury")
     @Test
     public void kwadrat(){
 
@@ -34,13 +37,23 @@ public class AppTest {
         assertEquals(40,figura.obliczObwod());
     }
 
+    @Tag("Figury")
     @Test
     public void trojkat(){
 
         FiguraGeometryczna figura = new TrojkatRownoboczny(10);
 
-        //assertEquals(100,figura.obliczPole());
+        double poleOczekiwane = 43.30127018922193233800;
+        double poleObliczone = figura.obliczPole();
+
+        double roznicaPol = poleOczekiwane-poleObliczone;
+
+
+        assertTrue(Math.abs(roznicaPol)<0.0000001);
+        System.out.println("Różnica pól: "+roznicaPol);
+
         assertEquals(30,figura.obliczObwod());
+
     }
 
 }
