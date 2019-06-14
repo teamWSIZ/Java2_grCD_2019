@@ -9,7 +9,7 @@ public class App {
     }
 
     public double dodajLiczby(double a, double b){
-        return a+b+1;
+        return a+b;
     }
 
     public static void main(String[] args) {
