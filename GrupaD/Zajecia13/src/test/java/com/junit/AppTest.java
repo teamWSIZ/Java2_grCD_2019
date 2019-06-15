@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AppTest {
     @Tag("przyklad")
@@ -40,7 +41,15 @@ public class AppTest {
     public void trojkat(){
         FiguraGeometryczna figura = new trojkatRownoboczny(10);
 
-        //assertEquals(100,figura.obliczPole());
+        double poleObczone = figura.obliczPole();
+        double poleOczekiwane = 43.30127018922193233800;
+
+        double roznica = Math.abs(poleObczone-poleOczekiwane);
+
+        System.out.println("Roznica: "+roznica);
+        assertTrue(roznica<7.105427357601002E-10);
+
+
         assertEquals(30,figura.obliczObwod());
     }
 
