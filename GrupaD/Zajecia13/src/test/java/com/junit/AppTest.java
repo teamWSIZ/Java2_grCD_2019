@@ -24,12 +24,24 @@ public class AppTest {
         assertEquals(20,app.dodaj(10,10));
     }
 
-    @Tag("math")
+    @Tag("FiguryGeometryczne")
+    @Tag("Kwadrat")
     @Test
-    public void testSzescianu(){
-        FiguryGeometryczne figuryGeometryczne = new FiguryGeometryczne();
+    public void kwadrat(){
+        FiguraGeometryczna figura = new Kwadrat(10);
 
-        assertEquals(125,figuryGeometryczne.objętoscSzescianu(5));
+        assertEquals(100,figura.obliczPole());
+        assertEquals(40,figura.obliczObwod());
+    }
+
+    @Tag("FiguryGeometryczne")
+    @Tag("Trojkat")
+    @Test
+    public void trojkat(){
+        FiguraGeometryczna figura = new trojkatRownoboczny(10);
+
+        //assertEquals(100,figura.obliczPole());
+        assertEquals(30,figura.obliczObwod());
     }
 
 

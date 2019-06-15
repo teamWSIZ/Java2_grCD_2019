@@ -27,6 +27,7 @@ public class AppTest {
         assertEquals(50,app.dodajLiczby(20,30));
     }
 
+    @Tag("Kwadrat")
     @Tag("Figury")
     @Test
     public void kwadrat(){
@@ -37,6 +38,7 @@ public class AppTest {
         assertEquals(40,figura.obliczObwod());
     }
 
+    @Tag("Trojkat")
     @Tag("Figury")
     @Test
     public void trojkat(){

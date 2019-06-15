@@ -12,7 +12,7 @@ repositories {
 
 test{
     useJUnitPlatform(){
-        includeTags "math"
+        includeTags "FiguryGeometryczne"
     }
 }
 
