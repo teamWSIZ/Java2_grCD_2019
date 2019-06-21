@@ -23,7 +23,7 @@ public class TrojkatRownoboczny extends FiguraGeometryczna{
         return 3*mA;
     }
 
-    protected double obliczPole(FunkcjaObliczajacaPole funkcja){
-        return funkcja.oblicz(mA);
+    protected double obliczPole(FunkcjaObliczajacaPole funkcja, double a){
+        return funkcja.oblicz(a);
     }
 }

@@ -58,5 +58,14 @@ public class AppTest {
 
     }
 
+    @Test
+    public void trojkat_1(){
+        TrojkatRownoboczny trojkat = new TrojkatRownoboczny(10);
+
+        double wynik1 = trojkat.obliczPole();
+        double wynik2 = trojkat.obliczPole((a)->10*a,10);
+
+    }
+
 
 }
