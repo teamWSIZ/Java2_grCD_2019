@@ -57,6 +57,6 @@ public class AppTest {
         assertEquals(30,figura.obliczObwod());
 
     }
-    
+
 
 }

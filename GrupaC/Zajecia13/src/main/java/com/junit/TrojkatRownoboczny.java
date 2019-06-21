@@ -1,6 +1,12 @@
 package com.junit;
 
 public class TrojkatRownoboczny extends FiguraGeometryczna{
+    @FunctionalInterface
+    public interface FunkcjaObliczajacaPole{
+        double oblicz(double a);
+    }
+
+
     private double mA;
 
     public TrojkatRownoboczny(double a){
@@ -15,5 +21,9 @@ public class TrojkatRownoboczny extends FiguraGeometryczna{
     @Override
     protected double obliczObwod() {
         return 3*mA;
+    }
+
+    protected double obliczPole(FunkcjaObliczajacaPole funkcja){
+        return funkcja.oblicz(mA);
     }
 }
