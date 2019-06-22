@@ -5,6 +5,18 @@ package com.generics;
 
 import java.util.ArrayList;
 
+class Obiekt<T>{
+    private T mWartosc;
+
+    public T get(){
+        return mWartosc;
+    }
+
+    public void set(T wartosc){
+        mWartosc = wartosc;
+    }
+}
+
 public class App {
 
     public static void main(String[] args) {
@@ -23,5 +35,12 @@ public class App {
 
         int b = liczby.get(0);
         int c = liczby.get(1);
+
+        Obiekt<Integer> obiekt = new Obiekt<>();
+        obiekt.set(10);
+
+        int d = obiekt.get();
+
+
     }
 }
