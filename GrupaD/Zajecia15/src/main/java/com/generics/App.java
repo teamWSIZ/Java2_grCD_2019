@@ -19,6 +19,14 @@ class Obiekt<T>{
 
 public class App {
 
+    public static <T> T dodajIwyswietl(Obiekt<T> obiekt, T i){
+        obiekt.set(i);
+
+        System.out.println(i);
+
+        return obiekt.get();
+    }
+
     public static void main(String[] args) {
         ArrayList lista = new ArrayList();
 
