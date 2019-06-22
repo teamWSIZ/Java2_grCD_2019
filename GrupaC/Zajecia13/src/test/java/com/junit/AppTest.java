@@ -3,6 +3,7 @@
  */
 package com.junit;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -58,13 +59,16 @@ public class AppTest {
 
     }
 
+    @Tag("Trojkat")
+    @Tag("Figury")
     @Test
     public void trojkat_1(){
         TrojkatRownoboczny trojkat = new TrojkatRownoboczny(10);
 
-        double wynik1 = trojkat.obliczPole();
-        double wynik2 = trojkat.obliczPole((a)->10*a,10);
+        double wynik1 = 43.30127018922193233800;
+        double wynik2 = trojkat.obliczPole((a)->Math.sqrt(3)/4*a*a,10);
 
+        Assertions.assertThat(wynik1-wynik2).isCloseTo(0,Assertions.offset(0.00001));
     }
 
 

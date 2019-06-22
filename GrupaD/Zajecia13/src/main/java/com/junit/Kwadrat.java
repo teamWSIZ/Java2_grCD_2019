@@ -18,4 +18,9 @@ public class Kwadrat extends FiguraGeometryczna {
     public double obliczObwod() {
         return 4*mBok;
     }
+
+    @Override
+    public double obliczObwod(FunkcjaPomocnicza funkcja, double a) {
+        return funkcja.oblicz(a);
+    }
 }

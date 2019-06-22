@@ -16,4 +16,9 @@ public class trojkatRownoboczny extends FiguraGeometryczna{
     public double obliczObwod() {
         return 3*mBok;
     }
+
+    @Override
+    public double obliczObwod(FunkcjaPomocnicza funkcja, double a) {
+        return funkcja.oblicz(a);
+    }
 }

@@ -3,6 +3,8 @@
  */
 package com.junit;
 
+import org.assertj.core.api.Assertions;
+import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
@@ -12,45 +14,68 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AppTest {
     @Tag("przyklad")
     @Test
-    public void przykladowyTest(){
+    public void przykladowyTest() {
         System.out.println("Przykladowy test");
     }
 
     @Tag("math")
     @Test
-    public void pierwszyTest(){
+    public void pierwszyTest() {
         App app = new App();
 
         System.out.println("porównuje liczby 25 i wynik funkcji");
-        assertEquals(20,app.dodaj(10,10));
+        assertEquals(20, app.dodaj(10, 10));
     }
 
     @Tag("FiguryGeometryczne")
     @Tag("Kwadrat")
     @Test
-    public void kwadrat(){
+    public void kwadrat() {
         FiguraGeometryczna figura = new Kwadrat(10);
 
-        assertEquals(100,figura.obliczPole());
-        assertEquals(40,figura.obliczObwod());
+        assertEquals(100, figura.obliczPole());
+        assertEquals(40, figura.obliczObwod());
     }
 
     @Tag("FiguryGeometryczne")
     @Tag("Trojkat")
     @Test
-    public void trojkat(){
+    public void trojkat() {
         FiguraGeometryczna figura = new trojkatRownoboczny(10);
 
         double poleObczone = figura.obliczPole();
         double poleOczekiwane = 43.30127018922193233800;
 
-        double roznica = Math.abs(poleObczone-poleOczekiwane);
+        double roznica = Math.abs(poleObczone - poleOczekiwane);
 
-        System.out.println("Roznica: "+roznica);
-        assertTrue(roznica<7.105427357601002E-10);
+        System.out.println("Roznica: " + roznica);
+        assertTrue(roznica < 7.105427357601002E-10);
 
 
-        assertEquals(30,figura.obliczObwod());
+        assertEquals(30, figura.obliczObwod());
+
+    }
+
+    @Tag("FiguryGeometryczne")
+    @Tag("Trojkat")
+    @Test
+    public void trojkat1() {
+        trojkatRownoboczny trojkat = new trojkatRownoboczny(10);
+
+        double poleTrojkata = trojkat.obliczPole();
+        double wartoscObliczona = 43.30127018922193233800;
+
+        Offset<Double> testType = Assertions.offset(0.0001);
+
+        Assertions.assertThat(poleTrojkata).isCloseTo(wartoscObliczona,testType);
+    }
+
+    @Tag("FiguryGeometryczne")
+    @Tag("Kwadrat")
+    @Test
+    public void kwadrat1() {
+        Kwadrat kwadrat = new Kwadrat(10);
+        Assertions.assertThat(kwadrat.obliczObwod()).isCloseTo(kwadrat.obliczObwod((a)->4*a,10), Assertions.withinPercentage(5));
     }
 
 
