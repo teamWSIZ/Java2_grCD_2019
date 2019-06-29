@@ -3,12 +3,36 @@
  */
 package com.threads;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
+class ThreadExample extends Thread{
+    String name;
+
+    ThreadExample(String name){
+        this.name = name;
     }
 
+    @Override
+    public void run() {
+        while(true) {
+            System.out.println("thread: "+name);
+
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+public class App {
+
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+
+        ThreadExample t0 = new ThreadExample("t0");
+        ThreadExample t1 = new ThreadExample("t1");
+
+        t0.start();
+        t1.start();
+
     }
 }
