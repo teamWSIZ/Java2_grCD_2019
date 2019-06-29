@@ -6,7 +6,6 @@ public class TrojkatRownoboczny extends FiguraGeometryczna{
         double oblicz(double a);
     }
 
-
     private double mA;
 
     public TrojkatRownoboczny(double a){
