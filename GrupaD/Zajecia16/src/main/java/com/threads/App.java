@@ -3,6 +3,8 @@
  */
 package com.threads;
 
+import java.util.ArrayList;
+
 class ThreadExample extends Thread{
     String name;
 
@@ -26,13 +28,34 @@ class ThreadExample extends Thread{
 
 public class App {
 
+    static double mDane[] = new double[10];
+
+    static void wyswietlDane(){
+        System.out.print("[");
+
+        for(int i=0;i<mDane.length;i++) {
+            System.out.print(mDane[i]);
+            if(i<mDane.length-1)
+                System.out.print(", ");
+        }
+
+
+        System.out.println("]");
+    }
+
     public static void main(String[] args) {
+
+        for(int i=0;i<10;i++)
+            mDane[i] = 0;
+
+        wyswietlDane();
+
 
         ThreadExample t0 = new ThreadExample("t0");
         ThreadExample t1 = new ThreadExample("t1");
 
-        t0.start();
-        t1.start();
+        //t0.start();
+        //t1.start();
 
     }
 }
