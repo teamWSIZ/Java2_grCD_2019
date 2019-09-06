@@ -4,11 +4,19 @@
 package com.thread;
 
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+    static double mDane[] = new double[10];
+
+    static void dodajDane(){
+        for(int i=0;i<mDane.length;i++)
+            mDane[i] = i;
+    }
+
+    static void wyswietlDane(){
+
     }
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        dodajDane();
+
     }
 }
