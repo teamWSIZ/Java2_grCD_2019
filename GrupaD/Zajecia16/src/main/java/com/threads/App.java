@@ -7,9 +7,13 @@ import java.util.ArrayList;
 
 class ThreadExample extends Thread{
     String name;
+    double mData[];
+    int no;
 
-    ThreadExample(String name){
+    ThreadExample(String name, int threadNo, double[] data){
         this.name = name;
+        this.no = threadNo;
+        this.mData = data;
     }
 
     @Override
@@ -19,6 +23,7 @@ class ThreadExample extends Thread{
 
             try {
                 Thread.sleep(500);
+                mData[no]++;
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -51,11 +56,27 @@ public class App {
         wyswietlDane();
 
 
-        ThreadExample t0 = new ThreadExample("t0");
-        ThreadExample t1 = new ThreadExample("t1");
+        ThreadExample t0 = new ThreadExample("t0",0,mDane);
+        ThreadExample t1 = new ThreadExample("t1",1,mDane);
 
-        //t0.start();
-        //t1.start();
+
+        t0.start();
+        t1.start();
+
+        Thread wyswietlanie = new Thread(()->{
+
+            while(true) {
+
+                wyswietlDane();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        wyswietlanie.start();
 
     }
 }
