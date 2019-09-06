@@ -12,11 +12,18 @@ public class App {
     }
 
     static void wyswietlDane(){
+        System.out.print("[");
 
+        for(int i=0;i<mDane.length;i++){
+            System.out.print(mDane[i]+"    ");
+        }
+
+        System.out.print("]");
     }
 
     public static void main(String[] args) {
         dodajDane();
+        wyswietlDane();
 
     }
 }
