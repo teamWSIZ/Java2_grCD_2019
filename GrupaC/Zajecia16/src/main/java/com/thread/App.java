@@ -15,7 +15,10 @@ public class App {
         System.out.print("[");
 
         for(int i=0;i<mDane.length;i++){
-            System.out.print(mDane[i]+"    ");
+            System.out.print(mDane[i]);
+            
+            if(i<mDane.length-1)
+                System.out.print(", ");
         }
 
         System.out.print("]");
