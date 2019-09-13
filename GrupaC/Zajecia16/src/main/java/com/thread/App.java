@@ -26,12 +26,6 @@ class NewThread extends Thread{
 
 public class App {
     static double mDane[] = new double[10];
-
-    static void dodajDane(){
-        for(int i=0;i<mDane.length;i++)
-            mDane[i] = i;
-    }
-
     static void wyswietlDane(){
         System.out.print("[");
 
@@ -45,43 +39,42 @@ public class App {
         System.out.println("]");
     }
 
-    static void dodajDane1(){
-        for(int i=0;i<mDane.length;i++)
-            mDane[i]+=2;
+    static void dodajDane(int no){
+        if(no>=0&&no<mDane.length)
+            mDane[no]++;
     }
 
     public static void main(String[] args) {
-        dodajDane();
-        wyswietlDane();
 
-        Thread thread = new Thread(()->{
-            while(true) {
+        for(int i=0;i<2;i++) {
+            final int j = i;
+
+            Thread thread = new Thread(() -> {
+                while (true) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    dodajDane(j);
+                }
+            });
+
+            thread.start();
+        }
+
+        Thread wyswietlanie = new Thread(()->{
+            while(true){
                 try {
-                    Thread.sleep(100);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                dodajDane1();
                 wyswietlDane();
             }
         });
 
-        thread.start();
-
-        /*for(int i=0;i<20;i++) {
-            NewThread t0 = new NewThread(i+4);
-            t0.start();
-        }*/
-
-        /*for(int i=0;i<500;i++){
-            System.out.println("1");
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-         */
+        wyswietlanie.start();
 
     }
 }
