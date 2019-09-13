@@ -3,6 +3,27 @@
  */
 package com.thread;
 
+
+class NewThread extends Thread{
+    private double no;
+
+    NewThread(double no){
+        this.no = no;
+    }
+
+    @Override
+    public void run() {
+        while(true){
+            System.out.println(this.no);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
 public class App {
     static double mDane[] = new double[10];
 
@@ -21,14 +42,38 @@ public class App {
                 System.out.print(", ");
         }
 
-        System.out.print("]");
+        System.out.println("]");
+    }
+
+    static void dodajDane1(){
+        for(int i=0;i<mDane.length;i++)
+            mDane[i]+=2;
     }
 
     public static void main(String[] args) {
         dodajDane();
         wyswietlDane();
 
-        while(true){
+        Thread thread = new Thread(()->{
+            while(true) {
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                dodajDane1();
+                wyswietlDane();
+            }
+        });
+
+        thread.start();
+
+        /*for(int i=0;i<20;i++) {
+            NewThread t0 = new NewThread(i+4);
+            t0.start();
+        }*/
+
+        /*for(int i=0;i<500;i++){
             System.out.println("1");
             try {
                 Thread.sleep(500);
@@ -36,6 +81,7 @@ public class App {
                 e.printStackTrace();
             }
         }
+         */
 
     }
 }

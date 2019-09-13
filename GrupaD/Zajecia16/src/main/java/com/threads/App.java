@@ -14,6 +14,7 @@ class ThreadExample extends Thread{
         this.name = name;
         this.no = threadNo;
         this.mData = data;
+
     }
 
     @Override
@@ -27,6 +28,20 @@ class ThreadExample extends Thread{
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+        }
+    }
+}
+
+class ThreadExample0 extends Thread{
+    @Override
+    public void run(){
+        while(true){
+            try{
+                Thread.sleep(200);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("napis");
         }
     }
 }
@@ -56,12 +71,21 @@ public class App {
         wyswietlDane();
 
 
+
         ThreadExample t0 = new ThreadExample("t0",0,mDane);
         ThreadExample t1 = new ThreadExample("t1",1,mDane);
 
+        ThreadExample0 t2 = new ThreadExample0();
+
+        for(int i=0;i<100;i++){
+            ThreadExample t = new ThreadExample("t"+i,i,mDane);
+            t.setDaemon(true);
+            t.start();
+        }
 
         t0.start();
         t1.start();
+
 
         Thread wyswietlanie = new Thread(()->{
 
@@ -77,6 +101,6 @@ public class App {
         });
 
         wyswietlanie.start();
-
+        
     }
 }
