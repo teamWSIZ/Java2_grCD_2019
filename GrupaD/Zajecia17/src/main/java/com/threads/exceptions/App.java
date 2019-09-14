@@ -17,12 +17,9 @@ public class App {
         String data = "";
 
         while (true) {
-            try {
-                data = scanner.next();
-                System.out.println("Wprowadzono: " + data);
-            }catch(Exception e){
+            data = scanner.next();
+            System.out.println("Wprowadzono: " + data);
 
-            }
 
         }
 
