@@ -16,22 +16,31 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         String data = "";
 
-        while (true) {
+        while(true) {
+
+            System.out.println("Wprowadź y: ");
             data = scanner.next();
-            System.out.println("Wprowadzono: " + data);
 
+            if(data.contains("stop")) {
+                System.out.println("Wyjście z programu");
+                break;
+            }
 
+            try {
+                y = Integer.parseInt(data);
+            }catch(NumberFormatException e){
+                e.printStackTrace();
+                continue;
+            }
+
+            try {
+                double result = divide(x, y);
+                System.out.println(x + "/" + y + " = " + result);
+            } catch (ArithmeticException e) {
+                e.printStackTrace();
+            }
         }
 
-
-/*
-        try {
-            double result = divide(x,y);
-            System.out.println(x + "/" + y + " = " + result);
-        }catch(ArithmeticException e){
-            e.printStackTrace();
-        }
-        */
 
     }
 
@@ -39,6 +48,6 @@ public class App {
         if(y==0)
             throw new ArithmeticException("y nie może wynosić zero");
 
-        return x/y;
+        return x/(double)y;
     }
 }
