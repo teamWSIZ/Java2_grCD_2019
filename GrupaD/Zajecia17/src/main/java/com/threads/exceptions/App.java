@@ -4,29 +4,44 @@
 package com.threads.exceptions;
 
 import java.io.IOException;
+import java.util.Scanner;
 
 public class App {
 
-    public static void main(String[] args){
-        try {
-            System.out.println("kod...");
-            metchod1();
-            System.out.println("Dalszy kod...");
-        }catch(IOException e){
-            e.printStackTrace();
-            System.out.println("Przechwycono wyjątek");
+    public static void main(String[] args) {
+
+        int x = 10;
+        int y = 10;
+
+        Scanner scanner = new Scanner(System.in);
+        String data = "";
+
+        while (true) {
+            try {
+                data = scanner.next();
+                System.out.println("Wprowadzono: " + data);
+            }catch(Exception e){
+
+            }
+
         }
+
+
+/*
+        try {
+            double result = divide(x,y);
+            System.out.println(x + "/" + y + " = " + result);
+        }catch(ArithmeticException e){
+            e.printStackTrace();
+        }
+        */
+
     }
 
-    public static void metchod1() throws IOException {
-        metchod0();
-    }
+    private static double divide(int x,int y){
+        if(y==0)
+            throw new ArithmeticException("y nie może wynosić zero");
 
-    public static void metchod0() throws IOException {
-        exceptionMetchod();
-    }
-
-    public static void exceptionMetchod() throws IOException {
-        throw new IOException("Coś poszło nie tak...");
+        return x/y;
     }
 }
