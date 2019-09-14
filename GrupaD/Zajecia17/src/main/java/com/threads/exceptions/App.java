@@ -3,12 +3,30 @@
  */
 package com.threads.exceptions;
 
+import java.io.IOException;
+
 public class App {
-    public String getGreeting() {
-        return "Hello world.";
+
+    public static void main(String[] args){
+        try {
+            System.out.println("kod...");
+            metchod1();
+            System.out.println("Dalszy kod...");
+        }catch(IOException e){
+            e.printStackTrace();
+            System.out.println("Przechwycono wyjątek");
+        }
     }
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+    public static void metchod1() throws IOException {
+        metchod0();
+    }
+
+    public static void metchod0() throws IOException {
+        exceptionMetchod();
+    }
+
+    public static void exceptionMetchod() throws IOException {
+        throw new IOException("Coś poszło nie tak...");
     }
 }
