@@ -13,6 +13,7 @@ repositories {
 test{
     useJUnitPlatform(){
         includeTags "Figury";
+        includeTags "Figura3D"
         //excludeTags "Kwadrat";
     }
 }

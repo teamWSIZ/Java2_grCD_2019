@@ -35,5 +35,21 @@ public class AppTest {
         Assertions.assertThat(wynik1-wynik2).isCloseTo(0,Assertions.offset(0.00001));
     }
 
+    @Tag("Figura3D")
+    @Test
+    public void figuraZal(){
+        Figura3D figura3D = new FiguraZal();
+
+        double wynikObliczony = 10;
+        double wynik = figura3D.obliczPole(10,10);
+
+
+
+        //double wynik1 = 43.30127018922193233800;
+        //double wynik2 = trojkat.obliczPole((a)->Math.sqrt(3)/4*a*a,10);
+
+        Assertions.assertThat(wynik1-wynik2).isCloseTo(0,Assertions.offset(0.00001));
+    }
+
 
 }

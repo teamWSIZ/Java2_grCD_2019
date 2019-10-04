@@ -78,5 +78,12 @@ public class AppTest {
         Assertions.assertThat(kwadrat.obliczObwod()).isCloseTo(kwadrat.obliczObwod((a)->4*a,10), Assertions.withinPercentage(5));
     }
 
+    @Tag("FiguraTrojwymiarowa")
+    @Test
+    public void testFigury(){
+        Figura1 figura1 = new Figura1(10);
+        figura1.obliczObwod(a->a*a,10);
+    }
+
 
 }

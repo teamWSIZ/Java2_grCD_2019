@@ -6,6 +6,10 @@ package com.threads.exceptions;
 import java.io.IOException;
 import java.util.Scanner;
 
+class MyException extends ArithmeticException{
+
+}
+
 public class App {
 
     public static void main(String[] args) {
@@ -31,6 +35,8 @@ public class App {
             }catch(NumberFormatException e){
                 e.printStackTrace();
                 continue;
+            }finally{
+                System.out.println("*************************");
             }
 
             try {
