@@ -3,12 +3,23 @@
  */
 package com.zajecia;
 
-public class App {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
-    public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+public class App extends Application {
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Group group = new Group();
+        Scene scene = new Scene(group,500,500);
+
+        Image image = new Image(getClass().getResource("grass.png").toString());
+        group.getChildren().add(new ImageView(image));
+
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 }
