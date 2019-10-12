@@ -3,12 +3,18 @@
  */
 package com.zajecia;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class App extends Application {
     @Override
@@ -16,8 +22,34 @@ public class App extends Application {
         Group group = new Group();
         Scene scene = new Scene(group,500,500);
 
+        Circle circle = new Circle();
+
+        circle.setRadius(50);
+        circle.setCenterX(50);
+        circle.setCenterY(50);
+        circle.setFill(Color.BLUE);
+
+        TranslateTransition tt = new TranslateTransition();
+        tt.setDuration(Duration.seconds(2));
+        tt.setFromX(0);
+        tt.setFromY(0);
+
+        tt.setToX(200);
+        tt.setToY(200);
+
+        tt.setNode(circle);
+        tt.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Animacja zakonczona...");
+            }
+        });
+
+        tt.play();
+
+
         Image image = new Image(getClass().getResource("grass.png").toString());
-        group.getChildren().add(new ImageView(image));
+        group.getChildren().addAll(new ImageView(image),circle);
 
         primaryStage.setScene(scene);
         primaryStage.show();
