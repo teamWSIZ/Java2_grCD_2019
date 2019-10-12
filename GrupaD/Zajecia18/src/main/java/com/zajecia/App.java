@@ -16,37 +16,69 @@ import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+class AnimationObject extends Circle{
+    private double m_x;
+    private double m_y;
+    private double m_dimension;
+    private Color mColor;
+
+    boolean positive = true;
+
+    AnimationObject(double x0, double y0, double dimension, Color color){
+        m_x = x0;
+        m_y = y0;
+        m_dimension = dimension;
+        mColor = color;
+
+        setRadius(m_dimension);
+        setCenterX(m_x);
+        setCenterY(m_y);
+        setFill(mColor);
+    }
+
+    public void setDirection(TranslateTransition tt){
+        if(positive){
+            tt.setFromX(0);
+            tt.setFromX(0);
+            tt.setToX(100);
+            tt.setToY(100);
+        }else{
+            tt.setFromX(100);
+            tt.setFromX(100);
+            tt.setToX(0);
+            tt.setToY(0);
+        }
+
+        positive = !positive;
+    }
+}
+
 public class App extends Application {
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
         Scene scene = new Scene(group,500,500);
 
-        Circle circle = new Circle();
-
-        circle.setRadius(50);
-        circle.setCenterX(50);
-        circle.setCenterY(50);
-        circle.setFill(Color.BLUE);
+        AnimationObject circle = new AnimationObject(0,0,20,Color.BLUE);
 
         TranslateTransition tt = new TranslateTransition();
         tt.setDuration(Duration.seconds(2));
-        tt.setFromX(0);
-        tt.setFromY(0);
 
-        tt.setToX(200);
-        tt.setToY(200);
+        circle.setDirection(tt);
 
         tt.setNode(circle);
         tt.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Animacja zakonczona...");
+
+                circle.setDirection(tt);
+                tt.play();
             }
         });
 
         tt.play();
-
 
         Image image = new Image(getClass().getResource("grass.png").toString());
         group.getChildren().addAll(new ImageView(image),circle);
