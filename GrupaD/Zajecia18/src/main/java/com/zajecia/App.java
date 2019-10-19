@@ -22,6 +22,8 @@ class AnimationObject extends Circle{
     private double m_dimension;
     private Color mColor;
 
+    private TranslateTransition mTranslateTransition;
+
     boolean positive = true;
 
     AnimationObject(double x0, double y0, double dimension, Color color){
@@ -34,19 +36,38 @@ class AnimationObject extends Circle{
         setCenterX(m_x);
         setCenterY(m_y);
         setFill(mColor);
+
+        mTranslateTransition = new TranslateTransition();
+        mTranslateTransition.setDuration(Duration.seconds(2));
+
+        mTranslateTransition.setNode(this);
+
+        mTranslateTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                System.out.println("Animacja zakonczona...");
+
+                setDirection();
+                mTranslateTransition.play();
+            }
+        });
     }
 
-    public void setDirection(TranslateTransition tt){
+    public void play(){
+        mTranslateTransition.play();
+    }
+
+    public void setDirection(){
         if(positive){
-            tt.setFromX(0);
-            tt.setFromX(0);
-            tt.setToX(100);
-            tt.setToY(100);
+            mTranslateTransition.setFromX(0);
+            mTranslateTransition.setFromX(0);
+            mTranslateTransition.setToX(100);
+            mTranslateTransition.setToY(100);
         }else{
-            tt.setFromX(100);
-            tt.setFromX(100);
-            tt.setToX(0);
-            tt.setToY(0);
+            mTranslateTransition.setFromX(100);
+            mTranslateTransition.setFromX(100);
+            mTranslateTransition.setToX(0);
+            mTranslateTransition.setToY(0);
         }
 
         positive = !positive;
@@ -60,28 +81,12 @@ public class App extends Application {
         Group group = new Group();
         Scene scene = new Scene(group,500,500);
 
-        AnimationObject circle = new AnimationObject(0,0,20,Color.BLUE);
+        AnimationObject object = new AnimationObject(0,0,20,Color.BLUE);
 
-        TranslateTransition tt = new TranslateTransition();
-        tt.setDuration(Duration.seconds(2));
 
-        circle.setDirection(tt);
-
-        tt.setNode(circle);
-        tt.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Animacja zakonczona...");
-
-                circle.setDirection(tt);
-                tt.play();
-            }
-        });
-
-        tt.play();
 
         Image image = new Image(getClass().getResource("grass.png").toString());
-        group.getChildren().addAll(new ImageView(image),circle);
+        group.getChildren().addAll(new ImageView(image),object);
 
         primaryStage.setScene(scene);
         primaryStage.show();
