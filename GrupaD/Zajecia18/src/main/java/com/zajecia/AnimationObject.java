@@ -58,10 +58,10 @@ class AnimationObject extends Circle {
         double x0 = m_x, y0 = m_y;
         double x1 = x0 + m_vx * m_dt;
         double y1 = y0 + m_vy * m_dt;
-            
+
         mTranslateTransition.setFromX(x0);
         mTranslateTransition.setFromX(y0);
-        mTranslateTransition.setToX(100);
-        mTranslateTransition.setToY(100);
+        mTranslateTransition.setToX(x1);
+        mTranslateTransition.setToY(y1);
     }
 }
