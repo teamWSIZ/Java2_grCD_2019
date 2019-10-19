@@ -3,111 +3,25 @@
  */
 package com.zajecia;
 
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-
-class AnimationObject extends Circle{
-    private double m_x;
-    private double m_y;
-    private double m_dimension;
-    private Color mColor;
-
-    private TranslateTransition mTranslateTransition;
-
-    boolean positive = true;
-
-    AnimationObject(double x0, double y0, double dimension, Color color){
-        m_x = x0;
-        m_y = y0;
-        m_dimension = dimension;
-        mColor = color;
-
-        setRadius(m_dimension);
-        setCenterX(m_x);
-        setCenterY(m_y);
-        setFill(mColor);
-
-        mTranslateTransition = new TranslateTransition();
-        mTranslateTransition.setDuration(Duration.seconds(2));
-
-        mTranslateTransition.setNode(this);
-
-        mTranslateTransition.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Animacja zakonczona...");
-
-                setDirection();
-                mTranslateTransition.play();
-            }
-        });
-    }
-
-    public void play(){
-        mTranslateTransition.play();
-    }
-
-    public void setDirection(){
-        if(positive){
-            mTranslateTransition.setFromX(m_x);
-            mTranslateTransition.setFromX(m_y);
-            mTranslateTransition.setToX(100);
-            mTranslateTransition.setToY(100);
-        }else{
-            mTranslateTransition.setFromX(100);
-            mTranslateTransition.setFromX(100);
-            mTranslateTransition.setToX(m_x);
-            mTranslateTransition.setToY(m_y);
-        }
-
-        positive = !positive;
-    }
-}
-
-class genV{
-    static double getX(){
-        return Math.random()*100;
-    }
-
-    static double getY(){
-        return Math.random()*100;
-    }
-
-    static double getSize(){
-        return Math.random()*20+10;
-    }
-
-    static double getVx(){
-        return 0;
-    }
-
-    static double getVy(){
-        return 0;
-    }
-}
 
 public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Group group = new Group();
-        Scene scene = new Scene(group,500,500);
+        Scene scene = new Scene(group, 500, 500);
 
         Image image = new Image(getClass().getResource("grass.png").toString());
         group.getChildren().add(new ImageView(image));
 
-        for(int i=0;i<10;i++){
-            AnimationObject object = new AnimationObject(genV.getX(),genV.getY(),genV.getSize(),Color.BLUE);
+        for (int i = 0; i < 10; i++) {
+            AnimationObject object = new AnimationObject(genV.getX(), genV.getY(),10,10, genV.getSize(), genV.getColor());
             object.play();
 
             group.getChildren().add(object);
