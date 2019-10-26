@@ -20,11 +20,11 @@ public class genV {
     }
 
     static double getVx() {
-        return 0;
+        return Math.random()*50+10;
     }
 
     static double getVy() {
-        return 0;
+        return Math.random()*50+10;
     }
 
     static Color getColor(){

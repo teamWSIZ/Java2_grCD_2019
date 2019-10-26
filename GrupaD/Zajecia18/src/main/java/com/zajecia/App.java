@@ -8,6 +8,7 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -20,8 +21,8 @@ public class App extends Application {
         Image image = new Image(getClass().getResource("grass.png").toString());
         group.getChildren().add(new ImageView(image));
 
-        for (int i = 0; i < 1; i++) {
-            AnimationObject object = new AnimationObject(genV.getX(), genV.getY(),10,10, genV.getSize(), genV.getColor());
+        for (int i = 0; i < 100; i++) {
+            AnimationObject object = new AnimationObject(genV.getX(), genV.getY(),genV.getVx(),genV.getVy(), genV.getSize(), genV.getColor());
             object.play();
 
             group.getChildren().add(object);
