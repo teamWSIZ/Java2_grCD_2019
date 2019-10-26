@@ -57,17 +57,22 @@ class AnimationObject extends Circle {
 
     public void calculate() {
 
-        double x0 = m_x;
-        double y0 = m_y;
+        double x0 = this.getTranslateX();
+        double y0 = this.getTranslateY();
 
         double x1 = x0 + m_vx * m_dt;
         double y1 = y0 + m_vy * m_dt;
 
-        System.out.println("y0: "+y0);
-        System.out.println("y1: "+y1);
-        System.out.println("vx: "+m_vx);
-        System.out.println("vy: "+m_vy);
-        System.out.println("dt: "+m_dt);
+        System.out.println("("+x0+","+y0+")->("+x1+","+y1+")");
+
+        if(x1>250) {
+            m_vx = -m_vx;
+            x1 = x0 + 2*m_vx * m_dt;
+        }
+
+        //System.out.println("vx: "+m_vx);
+        //System.out.println("vy: "+m_vy);
+        //System.out.println("dt: "+m_dt);
 
 
         mTranslateTransition.setFromX(x0);

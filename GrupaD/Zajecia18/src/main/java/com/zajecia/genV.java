@@ -8,11 +8,11 @@ public class genV {
     static ArrayList<Color> colors = new ArrayList<>();
 
     static double getX() {
-        return Math.random() * 100;
+        return Math.random() * 250;
     }
 
     static double getY() {
-        return Math.random() * 100;
+        return Math.random() * 250;
     }
 
     static double getSize() {
