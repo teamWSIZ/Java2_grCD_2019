@@ -20,7 +20,7 @@ public class App extends Application {
         Image image = new Image(getClass().getResource("grass.png").toString());
         group.getChildren().add(new ImageView(image));
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             AnimationObject object = new AnimationObject(genV.getX(), genV.getY(),10,10, genV.getSize(), genV.getColor());
             object.play();
 

@@ -20,9 +20,11 @@ class AnimationObject extends Circle {
 
     boolean positive = true;
 
-    AnimationObject(double x0, double y0, double m_vx, double m_vy, double dimension, Color color) {
+    AnimationObject(double x0, double y0, double vx, double vy, double dimension, Color color) {
         m_x = x0;
         m_y = y0;
+        m_vx = vx;
+        m_vy = vy;
         m_dimension = dimension;
         mColor = color;
 
@@ -31,7 +33,7 @@ class AnimationObject extends Circle {
         setCenterY(m_y);
         setFill(mColor);
 
-        m_dt = 0.1;
+        m_dt = 0.2;
 
         mTranslateTransition = new TranslateTransition();
         mTranslateTransition.setDuration(Duration.seconds(m_dt));
@@ -55,12 +57,22 @@ class AnimationObject extends Circle {
 
     public void calculate() {
 
-        double x0 = m_x, y0 = m_y;
+        double x0 = m_x;
+        double y0 = m_y;
+
         double x1 = x0 + m_vx * m_dt;
         double y1 = y0 + m_vy * m_dt;
 
+        System.out.println("y0: "+y0);
+        System.out.println("y1: "+y1);
+        System.out.println("vx: "+m_vx);
+        System.out.println("vy: "+m_vy);
+        System.out.println("dt: "+m_dt);
+
+
         mTranslateTransition.setFromX(x0);
-        mTranslateTransition.setFromX(y0);
+        mTranslateTransition.setFromY(y0);
+
         mTranslateTransition.setToX(x1);
         mTranslateTransition.setToY(y1);
     }
