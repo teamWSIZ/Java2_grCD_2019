@@ -27,7 +27,6 @@ public class App extends Application {
             group.getChildren().add(object);
         }
 
-
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -33,7 +33,7 @@ class AnimationObject extends Circle {
         setCenterY(m_y);
         setFill(mColor);
 
-        m_dt = 0.2;
+        m_dt = 0.1;
 
         mTranslateTransition = new TranslateTransition();
         mTranslateTransition.setDuration(Duration.seconds(m_dt));
@@ -43,8 +43,6 @@ class AnimationObject extends Circle {
         mTranslateTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Animacja zakonczona...");
-
                 calculate();
                 mTranslateTransition.play();
             }
